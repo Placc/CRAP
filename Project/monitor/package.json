@@ -1,0 +1,68 @@
+{
+  "name": "monitor",
+  "version": "0.1.0",
+  "license": "ISC",
+  "main": "src/index.js",
+  "scripts": {
+    "compile": "yarn && tsc && copyfiles \"src/**/*.js\" build && copyfiles package.json build",
+    "clean": "dotenv -e env/resetdb.env sh -- src/db/reset.sh",
+    "start": "dotenv -e env/start.env docker-compose -- -f docker-compose.yml up",
+    "build": "yarn run compile && docker-compose -f docker-compose.yml up --build --no-start && yarn run clean",
+    "debug": "dotenv -e env/debug.env docker-compose -- -f docker-compose.yml up",
+    "test": "yarn run compile && dotenv -e env/test.env sh -- test/test.sh"
+  },
+  "devDependencies": {
+    "ts-node": "^7.0.0",
+    "typescript": "^3.0.0"
+  },
+  "dependencies": {
+    "@types/chai": "^4.1.4",
+    "@types/express": "^4.16.0",
+    "@types/google-protobuf": "^3.2.7",
+    "@types/js-sha512": "^0.7.0",
+    "@types/lodash": "^4.14.116",
+    "@types/loglevel": "^1.5.3",
+    "@types/mocha": "^5.2.5",
+    "@types/node-rsa": "^0.4.3",
+    "@types/protobufjs": "^6.0.0",
+    "@types/proxyquire": "^1.3.28",
+    "@types/sinon": "^5.0.1",
+    "blob": "^0.0.4",
+    "body-parser": "^1.18.3",
+    "chai": "^4.1.2",
+    "chai-http": "^4.2.0",
+    "common": "file:../common/build",
+    "copyfiles": "^2.0.0",
+    "express": "^4.16.3",
+    "fast-json-stable-stringify": "^2.0.0",
+    "google-protobuf": "^3.6.1",
+    "grpc": "^1.15.1",
+    "https": "^1.0.0",
+    "js-sha512": "^0.8.0",
+    "lodash": "^4.17.10",
+    "loglevel": "^1.6.1",
+    "long": "^4.0.0",
+    "lossless-json": "^1.0.3",
+    "make-runnable": "^1.3.6",
+    "mocha": "^5.2.0",
+    "mysql": "^2.16.0",
+    "node-rsa": "^1.0.1",
+    "nodemon": "^1.18.3",
+    "nyc": "^12.0.2",
+    "proxyquire": "^2.1.0",
+    "replace": "^1.0.0",
+    "request": "^2.88.0",
+    "sinon": "^6.1.5",
+    "tiny-worker": "^2.1.2"
+  },
+  "nyc": {
+    "exclude": [
+      "coverage/**/*",
+      "build/test/**/*",
+      "test/**/*",
+      "node_modules/**/*",
+      "**/*.d.ts",
+      "**/types.ts"
+    ]
+  }
+}

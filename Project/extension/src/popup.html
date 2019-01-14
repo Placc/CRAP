@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html style="min-width:500px;">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Resource Integrity Verification</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div align="center">
+        <h2 style="display: inline-block; margin-right: 10px; text-align: right;">Resource Integrity Status:</h2>
+        <h2 style="display: inline-block; text-align: center;"><span id="global_status" style="color: #00ccff;"></span></h2>
+    </div>
+    <div id="app_div" style="border: 2px solid grey; border-radius: 10px; margin-bottom: 10px; position: relative; display: flex; flex-direction: row; justify-content: flex; align-items: center">
+        <div style="flex-grow: 1;">
+            <h4 style="display: inline-block; margin-right: 5px; margin-left: 10px;">Application Certificate Status:</h4>
+            <h4 style="display: inline-block;"><span id="app_status" style="color: #00ccff;"></span></h4>
+            <img id="app_icon" style="display: inline-block; margin-left: 10px;" width="24" height="24" align="center" />
+        </div>
+        <button id="app_info" style="background-color: transparent; border: solid 1px grey; border-radius: 5px; margin-right: 10px;">
+            <span style="color: grey;">info</span> </button>
+    </div>
+    <div id="audit_div" style="border: 2px solid grey; border-radius: 10px; margin-bottom: 10px; position: relative; display: flex; flex-direction: row; justify-content: flex; align-items: center">
+        <div style="flex-grow: 1;">
+            <h4 style="display: inline-block; margin-right: 5px; margin-left: 10px;">Audition Certificate Status:</h4>
+            <h4 style="display: inline-block;"><span id="audit_status" style="color: #00ccff;"></span></h4>
+            <img id="audit_icon" style="display: inline-block; margin-left: 10px;" width="24" height="24" align="center" />
+        </div>
+        <button id="audit_info" style="background-color: transparent; border: solid 1px grey; border-radius: 5px; margin-right: 10px;">
+            <span style="color: grey;">info</span> </button>
+    </div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+
+</html>

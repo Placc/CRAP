@@ -1,0 +1,44 @@
+version: "3"
+services:
+  auditordb:
+    image: mariadb:10.1
+    environment:
+      - MYSQL_ROOT_PASSWORD="auditor_db_pwd"
+    networks:
+      - auditornet
+  auditor:
+    environment:
+      - AUDITOR_SERVER=${AUDITOR_SERVER}
+      - PORT=${PORT}
+      - DEBUG=${DEBUG}
+      - RESET_DB=${RESET_DB}
+      - KEYFILE=${KEYFILE}
+      - NODE_ENV=${NODE_ENV}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USER=${DB_DATABASE}
+      - LOG_LEVEL=${LOG_LEVEL}
+      - AUDITOR_DB_HOST=auditordb
+      - AUDITOR_DB_PORT=3306
+    volumes:
+      - ./build:/app/auditor/build
+    build:
+      context: ../
+      dockerfile: auditor/Dockerfile
+    restart: always
+    networks:
+      - auditornet
+      - public
+    ports:
+      - "${DEBUG:-9232}:${DEBUG:-9232}"
+      - "${PORT:-3005}:${PORT:-3005}"
+    depends_on:
+      - auditordb
+    logging:
+      driver: ${AUDITOR_LOG}
+    stdin_open: true
+    tty: true
+networks:
+  public:
+    external:
+      name: crappi-net
+  auditornet:

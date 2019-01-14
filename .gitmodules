@@ -1,0 +1,3 @@
+[submodule "Trillian"]
+	path = Trillian
+	url = https://github.com/google/trillian.git

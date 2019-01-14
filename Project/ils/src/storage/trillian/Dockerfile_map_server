@@ -1,0 +1,40 @@
+FROM golang:1.9
+
+ENV DB_USER=test \
+    DB_PASSWORD=zaphod \
+    DB_DATABASE=test \
+    DB_HOST=mysql:3306 \
+    DB_PROVIDER="mysql"
+
+ENV HOST=0.0.0.0 \
+    RPC_PORT=8093 \
+    HTTP_PORT=8094
+
+ENV DUMP_METRICS 0s
+
+
+
+ADD ./Trillian /go/src/github.com/google/trillian
+WORKDIR /go/src/github.com/google/trillian
+
+SHELL ["/bin/bash", "-c"]
+ADD ./Project/common/wait-for-it.sh ./
+RUN ["sed", "-i", "-e", "s/\r$//", "./wait-for-it.sh"]
+
+RUN go get ./server/trillian_map_server
+
+# Maybe re-add: ./wait-for-it.sh -t 0 ${DB_HOST} -- 
+ENTRYPOINT /go/bin/trillian_map_server \
+  --mysql_uri="${DB_USER}:${DB_PASSWORD}@tcp(${DB_HOST})/${DB_DATABASE}" \
+  --storage_system=${DB_PROVIDER} \
+  --rpc_endpoint="$HOST:$RPC_PORT" \
+  --http_endpoint="$HOST:$HTTP_PORT" \
+  --alsologtostderr \
+  --stderrthreshold=INFO \
+  --v=32767
+
+EXPOSE $RPC_PORT
+EXPOSE $HTTP_PORT
+
+HEALTHCHECK --interval=5m --timeout=3s \
+  CMD curl -f http://localhost:$HTTP_PORT/debug/vars || exit 1

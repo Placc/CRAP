@@ -1,0 +1,35 @@
+version: "3"
+services:
+  ils:
+    container_name: c_ils
+    build:
+      context: ../ils
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+      - 5005:5005 #debug
+  pca:
+    container_name: c_pca
+    build:
+      context: ../pca
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+      - 5005:5005 #debug
+    depends_on: 
+      - ils
+  validator:
+    container_name: c_validator
+    build:
+      context: ../validator
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+      - 5005:5005 #debug
+    deploy:
+      mode: replicated
+      replicas: 2
+    depends_on:
+      - ils
+      - pca
+  

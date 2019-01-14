@@ -1,0 +1,30 @@
+FROM golang:1.9
+
+RUN apt-get update && \
+    apt-get install -y mysql-client
+
+ADD ./Project/ils/src/storage/db /go/src/db
+ADD ./Project/common/wait-for-it.sh /go/src/db
+ADD ./Project/ils/src/storage/sleep.sh /go/src/db
+WORKDIR /go/src/db
+
+ENV DB_USER=test \
+    DB_PASSWORD=zaphod \
+    DB_DATABASE=test
+
+# Change default shell to bash
+SHELL ["/bin/bash", "-c"]
+RUN ["sed", "-i", "-e", "s/\r$//", "./reset_dbs.sh"]
+RUN ["sed", "-i", "-e", "s/\r$//", "./resetdb_ils.sh"]
+RUN ["sed", "-i", "-e", "s/\r$//", "./resetdb_trillian.sh"]
+RUN ["sed", "-i", "-e", "s/\r$//", "./wait-for-it.sh"]
+RUN ["sed", "-i", "-e", "s/\r$//", "./sleep.sh"]
+
+RUN chmod +x ./reset_dbs.sh
+RUN chmod +x ./resetdb_ils.sh
+RUN chmod +x ./resetdb_trillian.sh
+RUN chmod +x ./wait-for-it.sh
+RUN chmod +x ./sleep.sh
+
+# Per default, this service sleeps forever
+CMD ["/bin/bash", "./sleep.sh"]

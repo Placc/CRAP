@@ -1,0 +1,43 @@
+.App {
+  background: #76b852; /* fallback for old browsers */
+  background: -webkit-linear-gradient(right, #76b852, #8dc26f);
+  background: -moz-linear-gradient(right, #76b852, #8dc26f);
+  background: -o-linear-gradient(right, #76b852, #8dc26f);
+  background: linear-gradient(to left, #76b852, #8dc26f);
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  padding: 100px;
+}
+
+.BadApp {
+  background: #ff6666; /* fallback for old browsers */
+  background: -webkit-linear-gradient(right, #ff6666, #ffaaaa);
+  background: -moz-linear-gradient(right, #ff6666, #ffaaaa);
+  background: -o-linear-gradient(right, #ff6666, #ffaaaa);
+  background: linear-gradient(to left, #ff6666, #ffaaaa);
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  padding: 100px;
+}
+
+.App-logo {
+  height: 36px;
+}
+
+.Name {
+  color: #005700;
+  font-weight: bold;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "common",
+  "version": "0.1.0",
+  "license": "ISC",
+  "scripts": {
+    "copy-proto": "copyfiles \"trillian/**/*.d.ts\" build && copyfiles \"trillian/**/*.js\" build",
+    "copy-files": "yarn run copy-proto && copyfiles package.json build",
+    "build": "yarn && tsc && yarn run copy-files"
+  },
+  "dependencies": {
+    "@types/express": "^4.16.0",
+    "@types/lodash": "^4.14.112",
+    "@types/node-rsa": "^0.4.3",
+    "@types/protobufjs": "^6.0.0",
+    "@types/valid-url": "^1.0.2",
+    "copyfiles": "^2.0.0",
+    "express": "^4.16.3",
+    "fast-json-stable-stringify": "^2.0.0",
+    "google-protobuf": "^3.6.1",
+    "grpc": "^1.15.1",
+    "ipaddr.js": "^1.8.1",
+    "js-sha512": "^0.8.0",
+    "lodash": "^4.17.10",
+    "loglevel": "^1.6.1",
+    "long": "^4.0.0",
+    "node-rsa": "^1.0.0",
+    "request": "^2.88.0",
+    "valid-url": "^1.0.9"
+  }
+}

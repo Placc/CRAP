@@ -1,0 +1,46 @@
+version: "3"
+services:
+  cadb:
+    image: mariadb:10.1
+    environment:
+      - MYSQL_ROOT_PASSWORD="ca_db_pwd"
+    networks:
+      - canet
+  ca:
+    environment:
+      - ALWAYS_ACCEPT=${ALWAYS_ACCEPT}
+      - CA_SERVER=${CA_SERVER}
+      - PORT=${PORT}
+      - DEBUG_PORT=${DEBUG_PORT}
+      - DEBUG=${DEBUG}
+      - RESET_DB=${RESET_DB}
+      - NODE_ENV=${NODE_ENV}
+      - KEYFILE=${KEYFILE}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USER=${DB_DATABASE}
+      - LOG_LEVEL=${LOG_LEVEL}
+      - CA_DB_HOST=cadb
+      - CA_DB_PORT=3306
+    volumes:
+      - ./build:/app/ca/build
+    build:
+      context: ../
+      dockerfile: ca/Dockerfile
+    restart: always
+    networks:
+      - public
+      - canet
+    ports:
+      - "${DEBUG_PORT:-9229}:${DEBUG_PORT:-9229}"
+      - "${PORT:-3001}:${PORT:-3001}"
+    depends_on:
+      - cadb
+    logging:
+      driver: ${CA_LOG}
+    stdin_open: true
+    tty: true
+networks:
+  public:
+    external:
+      name: crappi-net
+  canet:

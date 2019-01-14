@@ -1,0 +1,44 @@
+version: "3"
+services:
+  publisherdb:
+    image: mariadb:10.1
+    environment:
+      - MYSQL_ROOT_PASSWORD="publisher_db_pwd"
+    networks:
+      - publishernet
+  publisher:
+    environment:
+      - PUBLISHER_SERVER=${PUBLISHER_SERVER}
+      - PORT=${PORT}
+      - DEBUG=${DEBUG}
+      - RESET_DB=${RESET_DB}
+      - NODE_ENV=${NODE_ENV}
+      - KEYFILE=${KEYFILE}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USER=${DB_DATABASE}
+      - LOG_LEVEL=${LOG_LEVEL}
+      - PUBLISHER_DB_HOST=publisherdb
+      - PUBLISHER_DB_PORT=3306
+    volumes:
+      - ./build:/app/publisher/build
+    build:
+      context: ../
+      dockerfile: publisher/Dockerfile
+    restart: always
+    networks:
+      - public
+      - publishernet
+    ports:
+      - "${DEBUG:-9231}:${DEBUG:-9231}"
+      - "${PORT:-3004}:${PORT:-3004}"
+    depends_on:
+      - publisherdb
+    logging:
+      driver: ${PUBLISHER_LOG}
+    stdin_open: true
+    tty: true
+networks:
+  public:
+    external:
+      name: crappi-net
+  publishernet:

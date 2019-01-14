@@ -1,0 +1,40 @@
+sudo: enabled
+
+language: node_js
+
+node_js:
+  - '8'
+
+services:
+  - docker
+
+env:
+  - DOCKER_COMPOSE_VERSION=1.22.0
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+  - export PATH="$HOME/.yarn/bin:$PATH"
+  - yarn global add typescript && yarn global add cwd && yarn global add tsc && yarn global add dotenv-cli
+  - docker network create crappi-net
+
+notifications:
+  email: false
+
+script:
+  - cd Project/common && yarn run build && cd ../..
+  - cd Project/ca && yarn run build && cd ../.. 
+  - cd Project/ils && yarn run build && cd ../..
+  - cd Project/auditor && yarn run build && cd ../..
+  - cd Project/publisher && yarn run build && cd ../..
+  - cd Project/monitor && yarn run build && cd ../..
+  - cd Project/extension && yarn run build && cd ../..
+  - cd Project/ca && yarn run test && cd ../.. 
+  - cd Project/ils && yarn run test && cd ../..
+  - cd Project/auditor && yarn run test && cd ../..
+  - cd Project/publisher && yarn run test && cd ../..
+  - cd Project/monitor && yarn run test && cd ../..
+  - cd Project/extension && yarn run test && cd ../..

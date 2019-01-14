@@ -1,0 +1,3 @@
+new Promise((resolve, reject) => {
+    eval = function(code) { reject(new Error("Eval called for: " + code)); };
+})

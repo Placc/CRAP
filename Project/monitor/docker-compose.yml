@@ -1,0 +1,43 @@
+version: "3"
+services:
+  monitordb:
+    image: mariadb:10.1
+    environment:
+      - MYSQL_ROOT_PASSWORD="monitor_db_pwd"
+    networks:
+      - monitornet
+  monitor:
+    environment:
+      - PORT=${PORT}
+      - DEBUG=${DEBUG}
+      - RESET_DB=${RESET_DB}
+      - NODE_ENV=${NODE_ENV}
+      - KEYFILE=${KEYFILE}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USER=${DB_DATABASE}
+      - LOG_LEVEL=${LOG_LEVEL}
+      - MONITOR_DB_HOST=monitordb
+      - MONITOR_DB_PORT=3306
+    volumes:
+      - ./build:/app/monitor/build
+    build:
+      context: ../
+      dockerfile: monitor/Dockerfile
+    restart: always
+    networks:
+      - public
+      - monitornet
+    ports:
+      - "${DEBUG:-9233}:${DEBUG:-9233}"
+      - "${PORT:-3006}:${PORT:-3006}"
+    depends_on:
+      - monitordb
+    logging:
+      driver: ${MONITOR_LOG}
+    stdin_open: true
+    tty: true
+networks:
+  public:
+    external:
+      name: crappi-net
+  monitornet:

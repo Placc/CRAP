@@ -1,0 +1,75 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug ILS",
+      "type": "node",
+      "request": "attach",
+      "preLaunchTask": "tsc-watch-ils",
+      "protocol": "inspector",
+      "remoteRoot": "/app",
+      "localRoot": "${workspaceFolder}",
+      "restart": true,
+      "sourceMaps": true,
+      "timeout": 60000,
+      "port": 9230,
+      "outFiles": ["${workspaceFolder}/ils/build/**/*.js"]
+    },
+    {
+      "name": "Debug CA",
+      "type": "node",
+      "request": "attach",
+      "preLaunchTask": "tsc-watch-ca",
+      "protocol": "inspector",
+      "remoteRoot": "/app",
+      "localRoot": "${workspaceFolder}",
+      "restart": true,
+      "sourceMaps": true,
+      "timeout": 60000,
+      "port": 9229,
+      "outFiles": ["${workspaceFolder}/ca/build/**/*.js"]
+    },
+    {
+      "name": "Debug Publisher",
+      "type": "node",
+      "request": "attach",
+      "preLaunchTask": "tsc-watch-publisher",
+      "protocol": "inspector",
+      "remoteRoot": "/app",
+      "localRoot": "${workspaceFolder}",
+      "restart": true,
+      "sourceMaps": true,
+      "timeout": 60000,
+      "port": 9231,
+      "outFiles": ["${workspaceFolder}/publisher/build/**/*.js"]
+    },
+    {
+      "name": "Debug Auditor",
+      "type": "node",
+      "request": "attach",
+      "preLaunchTask": "tsc-watch-auditor",
+      "protocol": "inspector",
+      "remoteRoot": "/app",
+      "localRoot": "${workspaceFolder}",
+      "restart": true,
+      "sourceMaps": true,
+      "timeout": 60000,
+      "port": 9232,
+      "outFiles": ["${workspaceFolder}/auditor/build/**/*.js"]
+    },
+    {
+      "name": "Debug Monitor",
+      "type": "node",
+      "request": "attach",
+      "preLaunchTask": "tsc-watch-monitor",
+      "protocol": "inspector",
+      "remoteRoot": "/app",
+      "localRoot": "${workspaceFolder}",
+      "restart": true,
+      "sourceMaps": true,
+      "timeout": 60000,
+      "port": 9229,
+      "outFiles": ["${workspaceFolder}/monitor/build/**/*.js"]
+    }
+  ]
+}

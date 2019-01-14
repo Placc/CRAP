@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package entrypb;
+
+// Entry represents a mapping stored in the Map after a source
+// Log has been fetched and mapped.  It holds the newest certificate
+// from the Log that references a particular domain.
+message MapEntry {
+  // The domain referenced by entries in the mapped CT Log.
+  string domain = 1;
+  // The newest certificate referencing the domain.
+  string cert = 2;
+}
+
+// Types of operations applicable to log entires.
+enum Operation {
+  CREATE = 0;
+  UPDATE = 1;
+  DELETE = 2;
+}
+
+// LogEntry represents a mapping stored in the Log holding an operation
+// on a particular certificate that references a particular domain.
+message LogEntry {
+  // The domain of the certificate.
+  string domain = 1;
+  // The operation applied.
+  Operation operation = 2;
+  // The certificate operated on.
+  string cert = 3;
+}

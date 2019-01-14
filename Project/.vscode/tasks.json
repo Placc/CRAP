@@ -1,0 +1,25 @@
+{
+  "version": "0.1.0",
+  "tasks": [
+    {
+      "taskName": "tsc-watch-ils",
+      "command": "tsc",
+      "args": ["-w", "-p", "./ils"],
+      "isShellCommand": true,
+      "isBackground": true,
+      "isBuildCommand": true,
+      "problemMatcher": "$tsc-watch",
+      "showOutput": "always"
+    },
+    {
+      "taskName": "tsc-watch-ca",
+      "command": "tsc",
+      "args": ["-w", "-p", "./ca"],
+      "isShellCommand": true,
+      "isBackground": true,
+      "isBuildCommand": true,
+      "problemMatcher": "$tsc-watch",
+      "showOutput": "always"
+    }
+  ]
+}
