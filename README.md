@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/Placc/CRAP.svg?branch=master)](https://travis-ci.com/Placc/CRAP)
+
 # Master's Thesis: Certificate-based Resource Alteration Prevention using a Public Key Infrastructure
 
 ## Abstract
@@ -8,6 +10,6 @@ In this work, we present a novel approach based on a public key infrastructure t
 
 Furthermore, we encourage security experts to publish their analysis results for an application in our system with a certificate as well. Since we expect casual users to have not taken far-reaching security precautions against common client-side attacks, experts can additionally specify assertions in the analysis certificates to provide additional protection and confidence. These are then verified by our browser extension, which already queries certificates and verifies associated proofs.
 
-##Repository
+## Repository
 
 This repository contains the prototypical implementation of CRAPPI (Certificate-based Resource Alteration Prevention using a Public (K)ey Infrastructure). Furthermore, the master's thesis is provided as PDF for a high-level overview. 
